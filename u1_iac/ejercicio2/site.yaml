@@ -1,0 +1,44 @@
+- hosts: all
+  become: true
+  tasks:
+      # Actualizamos paquetes
+    - name: Actualizamos el sistema
+      apt: update_cache=yes upgrade=yes
+      # Instalar paquetes
+    - name: "Instalar paquetes con apt"
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        # Aquí tienes que poner los paquetes que quieres instalar
+      # Copia un fichero a la máquina remota
+    - name: "Copiar fichero a la máquina remota"
+      copy:
+        src: files/foo.conf
+        dest:
+        owner: root
+        group: root
+        mode: '0644'
+
+      # Copia un template a un fichero
+    - name: "Copiar un template a un fichero de la máquina remota"
+      template:
+        src: templates/index.j2
+        dest:
+        owner: www-data
+        group: www-data
+        mode: 0644
+
+      # Crear base de datos
+    - name: "Crear base de datos"
+      community.mysql.mysql_db:
+        name: "{{ bd_name }}"
+        state: present
+
+      # Crear usuario de base de datos
+    - name: "Crear usuario de base de datos"
+      community.mysql.mysql_user:
+        name: "{{ bd_user }}"
+        password: "{{ bd_pass }}"
+        priv: "{{ bd_name }}.*:ALL"
+        state: present
