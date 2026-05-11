@@ -11,4 +11,14 @@ Repositorio con los ejercicios prácticos del módulo de **Proyecto Integrado**.
 
 ### `02_opentofu/` — Infraestructura como código con OpenTofu + libvirt
 
-- **`ejemplo1/`** — Despliegue de una máquina virtual Debian sobre KVM/libvirt usando un clon ligero (backing store) sobre una imagen base. Incluye configuración cloud-init con usuario, clave SSH, teclado, zona horaria e instalación de paquetes.
+Todos los ejemplos usan clones ligeros (backing store) sobre una imagen base qcow2 y cloud-init para la configuración inicial. Los nombres de recursos llevan el prefijo `ejN-` para evitar conflictos entre ejemplos.
+
+- **`ejemplo1/`** — 1 VM Debian. Red `default` con DHCP. Introducción básica a OpenTofu con libvirt.
+
+- **`ejemplo2/`** — 1 VM Debian. Red `default` con DHCP. Añade un disco extra de 1 GB.
+
+- **`ejemplo3/`** — 1 VM Debian con 2 interfaces de red: NAT con DHCP (`nat-dhcp`) y red `default`. Disco extra de 1 GB. Introduce la definición de redes con `network.tf` y la configuración de red via cloud-init (`network-config`).
+
+- **`ejemplo4/`** — 1 VM Debian con 2 interfaces: NAT con DHCP (`nat-dhcp`) y red aislada sin DHCP (`aislada-static`, IP estática 192.168.130.10). Disco extra de 1 GB. Incluye scripts `start.sh` y `stop.sh` para gestionar el ciclo de vida del escenario.
+
+- **`ejemplo5/`** — 2 VMs: server1 (Debian) y server2 (Ubuntu). Server1 actúa como gateway con acceso exterior via NAT y conectividad interna en red muy aislada (10.0.0.1). Server2 solo tiene red muy aislada (10.0.0.2, gateway 10.0.0.1). Escenario de red privada con un único punto de salida.
