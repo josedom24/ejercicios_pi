@@ -26,13 +26,13 @@ resource "libvirt_domain" "ej5-server1" {
 
   # Red 1: NAT con DHCP (acceso exterior)
   network_interface {
-    network_id     = libvirt_network.nat-dhcp.id
+    network_id     = libvirt_network.ej5-nat-dhcp.id
     wait_for_lease = true
   }
 
   # Red 2: muy aislada (IP estática 10.0.0.1, gateway hacia server2)
   network_interface {
-    network_id = libvirt_network.muy-aislada.id
+    network_id = libvirt_network.ej5-muy-aislada.id
   }
 
   disk { volume_id = libvirt_volume.ej5-server1-disk.id }
@@ -74,7 +74,7 @@ resource "libvirt_domain" "ej5-server2" {
 
   # Red única: muy aislada (IP estática 10.0.0.2, gateway 10.0.0.1)
   network_interface {
-    network_id = libvirt_network.muy-aislada.id
+    network_id = libvirt_network.ej5-muy-aislada.id
   }
 
   disk { volume_id = libvirt_volume.ej5-server2-disk.id }

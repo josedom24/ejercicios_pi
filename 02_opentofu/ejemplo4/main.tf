@@ -31,13 +31,13 @@ resource "libvirt_domain" "ej4-server1" {
 
   # Red 1: NAT con DHCP (acceso exterior)
   network_interface {
-    network_id     = libvirt_network.nat-dhcp.id
+    network_id     = libvirt_network.ej4-nat-dhcp.id
     wait_for_lease = true
   }
 
   # Red 2: aislada sin DHCP (IP estática 192.168.130.10)
   network_interface {
-    network_id = libvirt_network.aislada-static.id
+    network_id = libvirt_network.ej4-aislada-static.id
   }
 
   disk { volume_id = libvirt_volume.ej4-server1-disk.id }

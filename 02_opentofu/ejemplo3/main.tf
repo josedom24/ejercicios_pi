@@ -31,7 +31,7 @@ resource "libvirt_domain" "ej3-server1" {
 
   # Red 1: NAT con DHCP (acceso exterior)
   network_interface {
-    network_id     = libvirt_network.nat-dhcp.id
+    network_id     = libvirt_network.ej3-nat-dhcp.id
     wait_for_lease = true
   }
 
