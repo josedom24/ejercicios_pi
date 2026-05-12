@@ -19,7 +19,7 @@ Todos los ejemplos usan clones ligeros (backing store) sobre una imagen base qco
 
 - **`ejemplo3/`** — 1 VM Debian con 2 interfaces de red: NAT con DHCP (`ej3-nat-dhcp`) y red `default`. Disco extra de 1 GB. Introduce la definición de redes con `network.tf` y la configuración de red via cloud-init (`network-config`).
 
-- **`ejemplo4/`** — 1 VM Debian con 2 interfaces: NAT con DHCP (`ej4-nat-dhcp`) y red aislada sin DHCP (`ej4-aislada-static`, IP estática 192.168.130.10). Disco extra de 1 GB. Incluye scripts `start.sh` y `stop.sh` para gestionar el ciclo de vida del escenario.
+- **`ejemplo4/`** — 1 VM Debian con 2 interfaces: NAT con DHCP (`ej4-nat-dhcp`) y red aislada sin DHCP (`ej4-aislada-static`, IP estática 192.168.130.10). Disco extra de 1 GB. 
 
 - **`ejemplo5/`** — 2 VMs: server1 (Debian) y server2 (Ubuntu). Server1 actúa como gateway con acceso exterior via NAT (`ej5-nat-dhcp`) y conectividad interna en red muy aislada (`ej5-muy-aislada`, 10.0.0.1). Server2 solo tiene red muy aislada (10.0.0.2, gateway 10.0.0.1). Escenario de red privada con un único punto de salida.
 
