@@ -1,14 +1,17 @@
-- hosts:
+- name: Configuracion comun
+  hosts: all
   become: true
   roles:
-   - role:
+    - commons
 
-- hosts:
+- name: Configuracion servidor web
+  hosts: servidores_web
   become: true
   roles:
-   - role:
+    - apache2
 
-- hosts:
+- name: Configuracion servidor bd
+  hosts: servidores_bd
   become: true
   roles:
-   - role:
+    - mariadb

@@ -1,28 +1,32 @@
-- name: ensure mariadb is installed
+---
+- name: Instalar MariaDB
   apt:
-    pkg:
-      - mariadb-server
-      - python3-mysqldb
-
-- name: create database wordpress
-  community.mysql.mysql_db:
-    name: "{{cambia_nombre_variable}}"
+    name: mariadb-server
     state: present
 
-- name: create user mysql wordpress
-  community.mysql.mysql_user:
-    name: "{{cambia_nombre_variable}}"
-    host: "{{ item }}"
-    password: "{{cambia_nombre_variable}}"
-    priv: "{{cambia_nombre_variable}}.*:ALL,GRANT"
-  loop:
-    - localhost
+- name: Instalar PyMySQL
+  apt:
+    name: python3-pymysql
+    state: present
 
-- name: mariadb listen in all interfaces
+- name: Permitir conexiones remotas a MariaDB
   lineinfile:
-    dest: /etc/mysql/mariadb.conf.d/50-server.cnf
-    regexp: "^bind-address            = 127.0.0.1"
-    line: "bind-address            = 0.0.0.0"
+    path: /etc/mysql/mariadb.conf.d/50-server.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify: Reiniciar MariaDB
+
+- name: Crear base de datos
+  community.mysql.mysql_db:
+    name: "{{ bd_name }}"
     state: present
-  notify:
-    -
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Crear usuario de base de datos
+  community.mysql.mysql_user:
+    name: "{{ bd_user }}"
+    password: "{{ bd_pass }}"
+    priv: "{{ bd_name }}.*:ALL"
+    host: "%"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
